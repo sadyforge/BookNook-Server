@@ -106,6 +106,20 @@ app.patch("/books/:id",async(req,res)=>{
     res.send(result);
 })
 
+//delete books
+app.delete("/books/:id",async(req,res)=>{
+   const { id } = req.params;
+
+    if (!ObjectId.isValid(id)) {
+      return res.status(400).send({ msg: "Invalid destination ID" });
+    }
+      const result = await booksCollection.deleteOne({
+      _id: new ObjectId(id),
+    });
+    res.send(result)
+
+})
+
 
 app.get("/",(req,res)=>{
     res.send("Hello world")
